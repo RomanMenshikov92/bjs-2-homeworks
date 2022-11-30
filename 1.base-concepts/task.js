@@ -15,7 +15,7 @@ function solveEquation(a, b, c) {
   return arr; // возвращаем результат
 }
 
-// функция для решения дискриминанта с тремя параметрами a,b,c
+// функция для решения кредита ипотеки
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
   // проверка значения isNaN и меньше 0
   if (isNaN(Number.parseInt(percent)) === true || Number.parseInt(percent) < 0) {
