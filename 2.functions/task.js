@@ -1,5 +1,4 @@
 function getArrayParams(...arr) {
-  // обьявления переменных
   let min = arr[0];
   let max = arr[arr.length - 1];
   let amount = 0;
@@ -20,14 +19,16 @@ function getArrayParams(...arr) {
   // }
 
   // условие если в массиве нет ничего
-  if (arr.length === 0) return 0;
+  if (arr.length === 0) {
+    return 0;
+  }
   // проходим по методу (Math.min/max, reduce())
   max = Math.max(...arr);
   min = Math.min(...arr);
   amount = arr.reduce((sum, current) => sum + current, 0);
   // находим среднее арифметическое
   avg = parseFloat((amount / arr.length).toFixed(2));
-  // возврат
+
   return { min: min, max: max, avg: avg };
 }
 
@@ -40,34 +41,40 @@ function summElementsWorker(...arr) {
   // return sum;
 
   // условие если в массиве нет ничего
-  if (arr.length === 0) return 0;
+  if (arr.length === 0) {
+    return 0;
+  }
   // второй метод с помощью методов (reduce)
   let amount = arr.reduce((sum, current) => sum + current, 0);
-  // возврат
+
   return amount;
 }
 
 function differenceMaxMinWorker(...arr) {
-  // обьявления переменных
   let max;
   let min;
   let diffMaxMin;
   // условие если в массиве нет ничего
-  if (arr.length === 0) return 0;
+  if (arr.length === 0) {
+    return 0;
+  }
   // нахождение min и max в массиве
   max = Math.max(...arr);
   min = Math.min(...arr);
   // нахождение разницы между min и max
   diffMaxMin = max - min;
-  // возврат
+
   return diffMaxMin;
 }
 
 function differenceEvenOddWorker(...arr) {
-  // обьявления переменных
   let sumEvenElement = 0;
   let sumOddElement = 0;
   let diffEvenOdd;
+  // условие если в массиве нет ничего
+  if (arr.length === 0) {
+    return 0;
+  }
   // прохождение по циклу четности элементов в массиве
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] % 2 === 0) {
@@ -78,17 +85,18 @@ function differenceEvenOddWorker(...arr) {
   }
   // нахождение разности между суммой четности и нечетности
   diffEvenOdd = sumEvenElement - sumOddElement;
-  // возврат
+
   return diffEvenOdd;
 }
 
 function averageEvenElementsWorker(...arr) {
-  // обьявление переменных
   let sumEvenElement = 0;
   let countEvenElement = 0;
   let div;
   // условие если в массиве нет ничего
-  if (arr.length === 0) return 0;
+  if (arr.length === 0) {
+    return 0;
+  }
   // прохождение по циклу четности элементов и количество
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] % 2 === 0) {
@@ -98,23 +106,23 @@ function averageEvenElementsWorker(...arr) {
   }
   // нахождение деления между суммой четных элементов на количество
   div = sumEvenElement / countEvenElement;
-  // возврат
+
   return div;
 }
 
 function makeWork(arrOfArr, func) {
-  // обьявление переменных
-  let maxWorkerResult = -Infinity;
+  // let maxWorkerResult = -Infinity;
+  let maxWorkerResult = func(...arrOfArr[0]);
   // прохождение по циклу перебираемого элемента в массиве
   for (let i = 0; i < arrOfArr.length; i++) {
     // каждый общеперебираемый элемент в функцию-насадку
-    arrTotal = func(arrOfArr[i]);
+    let arrTotal = func(...arrOfArr[i]);
     // условие если общеперебираемый элемент больше максммума
     if (arrTotal > maxWorkerResult) {
       maxWorkerResult = arrTotal;
     }
   }
-  // возврат
+
   return maxWorkerResult;
 }
 const arr = [[10, 10, 11, 20, 10], [67, 10, 2, 39, 88], [72, 75, 51, 87, 43], [30, 41, 55, 96, 62]];
