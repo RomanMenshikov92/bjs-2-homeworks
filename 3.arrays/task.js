@@ -7,11 +7,13 @@ function getUsersNamesInAgeRange(users, gender) {
 
   // return selectionUsers = users.filter(items => items.gender === gender).reduce((sum, items) => sum + items.age / users.length, 0.0);
   // let arrFilter = users.filter((items) => items.gender === gender).map((items) => items.age);
-  // let arrAvg = arrFilter.reduce((sum, items) => (arrFilter.length === 0) ? 0 : sum + items.age / arrFilter.length, 0.0);
+  // let arrAvg = arrFilter.reduce((sum, item) => (arrFilter.length === 0) ? 0 : sum + item / arrFilter.length, 0.0);
 
-  let arrFilter = users.filter((items) => items.gender === gender);
-  let arrAvg = arrFilter.reduce((sum, items) => (arrFilter.length === 0) ? 0 : sum + items.age / arrFilter.length, 0.0);
-  return arrAvg;
+  let arrFilter = users.filter((items) => items.gender === gender).map((items) => items.age).reduce((sum, userAge, index, arrFilter) => (arrFilter.length === 0) ? 0 : sum + userAge / arrFilter.length, 0.0);
+
+  // let arrFilter = users.filter((items) => items.gender === gender);
+  // let arrAvg = arrFilter.reduce((sum, items) => (arrFilter.length === 0) ? 0 : sum + items.age / arrFilter.length, 0.0);
+  return arrFilter;
 }
 
 const people = [
