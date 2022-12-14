@@ -13,17 +13,20 @@ Student.prototype.setSubject = function (subjectName) {
 
 // Создайте метод addMarks(...marksToAdd) по аналогии с п. 2, который при вызове будет добавлять студенту сразу несколько оценок. Перед добавлением оценок добавьте проверку существования свойства marks, в котором хранятся оценки. Если пользователь отчислен, то у него не будет массива оценок, а, значит, и добавление будет невозможным.
 Student.prototype.addMarks = function (...marksToAdd) {
-  // условие,если проверка существования свойства marks пройдена то пушим массив оценок, иначе не пушим
-  if (Student.hasOwnProperty('marks')) {
+  if (this.marks !== undefined) {
     this.marks.push(...marksToAdd);
   } else {
-    !this.marks.push(...marksToAdd);
+    console.log('Студент отчислен');
   }
 }
 
 // Создайте метод getAverage() по аналогии с п. 2, который при вызове будет возвращать среднее арифметическое оценок студента. Добавьте проверку наличия оценок у студента. Если свойства marks не существует или оно пустое, сразу возвращайте ноль.
 Student.prototype.getAverage = function () {
-  return this.marks.reduce((sum, studentMarks) => (this.marks.length === 0) ? 0 : sum + studentMarks / this.marks.length, 0.0);
+  if (this.marks && this.marks.length > 0) {
+    return this.marks.reduce((sum, studentMarks) => sum + studentMarks / this.marks.length, 0.0);
+  } else {
+    return 0;
+  }
 }
 
 // Создайте метод exclude(reason) по аналогии с п. 2, который при вызове будет исключать студента из учебного процесса и устанавливать причину исключения. Для этого надо удалить свойства subject и marks и добавить свойство excluded со значением reason.
