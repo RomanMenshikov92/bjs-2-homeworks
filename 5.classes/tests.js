@@ -6,7 +6,7 @@ describe('Домашнее задание к лекции 5 «Классы»', (
     beforeEach(function(){
       printItem = new PrintEditionItem('Типовой школьный журнал', 2019, 102);
     });
-
+z
     it('создание печатного издания', () => {
       expect(printItem).toBeDefined();
       expect(printItem.name).toEqual('Типовой школьный журнал');
@@ -128,7 +128,7 @@ describe('Домашнее задание к лекции 5 «Классы»', (
     it('подсчёт средней оценки по предмету', () => {
       student.addMark(3, "algebra");
       student.addMark(5, "algebra");
-      expect(student.getAverageBySubject("algebra")).toEqual(4);
+      expect(student.getAverageBySubject("algebra")).toEqual(4)
     });
 
     it('подсчёт общей средней оценки', () => {

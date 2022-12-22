@@ -90,22 +90,25 @@ class Library {
   // метод, проверяющий найдена ли запрошенная книга
   findBookBy(type, value) {
     let findBook = this.books.find(book => book[type] === value);
-    if (typeof findBook === 'object') {
-      return findBook;
-    } else {
-      return null;
-    }
+    // if (typeof findBook === 'object') {
+    //   return findBook;
+    // } else {
+    //   return null;
+    // }
+    return findBook || null
   }
   // метод, проверяющий найдена ли книга и удаляет их хранилища books и возвращает ее
   giveBookByName(bookName) {
     let giveBook = this.books.find(book => book.name === bookName);
-    if (typeof giveBook === 'object') {
-      this.books.splice(this.books.indexOf(giveBook), 1);
-      return giveBook;
-    }
-    else {
-      return null;
-    }
+    // if (typeof giveBook === 'object') {
+    //   this.books.splice(this.books.indexOf(giveBook), 1);
+    //   return giveBook;
+    // }
+    // else {
+    //   return null;
+    // }
+    this.books = this.books.filter((item) => item.name !== bookName);
+    return giveBook || null;
   }
 }
 
@@ -147,15 +150,15 @@ class Student {
   }
 
   // метод, который добавляет оценку по предмету с условиями
-  addMark(mark, subject) {
+  addMark(mark, subjectName) {
     // условие на наличие предмета
-    if (this.logMarks.hasOwnProperty(subject) !== true) {
-      this.logMarks[subject] = [];
+    if (Object.keys(this.logMarks).includes(subjectName) !== true) {
+      this.logMarks[subjectName] = [];
       console.log('Нет предмета в журнале. Создаем новый предмет');
     }
     // условие на валидность оценок (<=2 и >=5)
     if ((typeof mark === 'number') && (mark >= 2) && (mark <= 5)) {
-      this.logMarks[subject].push(mark);
+      this.logMarks[subjectName].push(mark);
       console.log('Оценка отмечена');
     } else {
       return console.log('Некорректно! Оценка должна валидироваться в диапазоне от 2 до 5');
@@ -163,9 +166,9 @@ class Student {
   }
 
   // метод getAverageBySubject, который будет возвращать среднюю оценку по одному предмету
-  getAverageBySubject(subject) {
-    if (this.logMarks.hasOwnProperty(subject) === true) {
-      let marks = Object.values(this.logMarks[subject]);
+  getAverageBySubject(subjectName) {
+    if (this.logMarks.hasOwnProperty(subjectName) === true) {
+      let marks = this.logMarks[subjectName];
       return marks.reduce((sum, item) => sum += item / marks.length, 0.0);
     } else {
       return 0;
