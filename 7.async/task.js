@@ -6,21 +6,19 @@ class AlarmClock {
   }
 
   //метод, который добавляет новый звонок в коллекцию существующих.
-  addClock(id, time, callback) {
-    if (!time & !callback) {
+  addClock(time, callback) {
+    if (!time && !callback) {
       throw new Error('Отсутствуют обязательные аргументы');
     }
     if (this.alarmCollection.find((call) => call.time === time)) {
       console.warn('Уже присутствует звонок на это же время');
     }
-    return this.alarmCollection.push({ id, time, canCall: true })
+    return this.alarmCollection.push({ time, callback, canCall: true })
   }
 
   // метод, который удаляет звонки по определённому времени.
-  removeClock() {
-    const oldArray = this.alarmCollection.length;
-    this.alarmCollection = this.alarmCollection.filter((call) => call.time === time);
-    const newArray = this.alarmCollection.length;
+  removeClock(time) {
+    return this.alarmCollection = this.alarmCollection.filter((call) => call.time !== time);
   }
 
   // метод, который возвращает текущее время в строковом формате HH:MM.
@@ -29,18 +27,29 @@ class AlarmClock {
   }
 
   // метод, который запускает будильник.
-  start() {
-
+  start(time) {
+    if (this.intervalId !== null) {
+      return;
+    }
+    this.intervalId = setInterval(() => {
+      this.alarmCollection = this.alarmCollection.forEach((call) => {
+        call.time === time;
+        call.canCall = false;
+      });
+    }, 1000)
+    return;
   }
+
 
   // метод, который останавливает выполнение интервала будильника.
   stop() {
-
+    clearInterval(this.intervalId);
+    this.intervalId = null;
   }
 
   // метод, который сбрасывает возможность запуска всех звонков.
   resetAllCalls() {
-    this.alarmCollection = this.alarmCollection.forEach((call) => call.canCall = true);
+    return this.alarmCollection = this.alarmCollection.forEach((call) => call.canCall = true);
   }
 
   // метод, который удаляет все звонки.
