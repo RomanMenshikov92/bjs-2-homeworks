@@ -1,7 +1,7 @@
 describe('Домашнее задание к лекции 7 «Асинхронность»', () => {
   let clock;
 
-  beforeEach(function(){
+  beforeEach(function () {
     clock = new AlarmClock();
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
   })
@@ -58,7 +58,7 @@ describe('Домашнее задание к лекции 7 «Асинхронн
     clock.addClock("16:46", callback);
     clock.removeClock("16:45");
     expect(clock.alarmCollection.length).toEqual(1);
-    expect(clock.alarmCollection).toEqual([{time: "16:46", callback, canCall: true}]);
+    expect(clock.alarmCollection).toEqual([{ time: "16:46", callback, canCall: true }]);
   });
 
   it('будильник не должен удалять звонки отсутствующему времени', () => {
@@ -67,7 +67,7 @@ describe('Домашнее задание к лекции 7 «Асинхронн
     clock.addClock("16:46", callback);
     clock.removeClock("17:00");
     expect(clock.alarmCollection.length).toEqual(1);
-    expect(clock.alarmCollection).toEqual([{time: "16:46", callback, canCall: true}]);
+    expect(clock.alarmCollection).toEqual([{ time: "16:46", callback, canCall: true }]);
   });
 
   it('будильник должен затем очищать все звонки', () => {
@@ -92,7 +92,7 @@ describe('Домашнее задание к лекции 7 «Асинхронн
     clock.addClock("16:45", f => f);
     clock.addClock("16:45", f => f);
     clock.addClock("16:45", f => f);
-    
+
     expect(clock.alarmCollection.every(alarm => alarm.canCall)).toBe(true);
     clock.alarmCollection.forEach(alarm => alarm.canCall = false);
     expect(clock.alarmCollection.every(alarm => alarm.canCall)).toBe(false);

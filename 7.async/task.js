@@ -7,7 +7,7 @@ class AlarmClock {
 
   //метод, который добавляет новый звонок в коллекцию существующих.
   addClock(time, callback) {
-    if (!time && !callback) {
+    if (!time || !callback) {
       throw new Error('Отсутствуют обязательные аргументы');
     }
     if (this.alarmCollection.find((call) => call.time === time)) {
@@ -23,18 +23,21 @@ class AlarmClock {
 
   // метод, который возвращает текущее время в строковом формате HH:MM.
   getCurrentFormattedTime() {
-    return new Date().toTimeString().slice(0, 5);
+    return new Date().toTimeString().slice(0, 5)
+
   }
 
   // метод, который запускает будильник.
-  start(time) {
+  start() {
     if (this.intervalId !== null) {
       return;
     }
     this.intervalId = setInterval(() => {
-      this.alarmCollection = this.alarmCollection.forEach((call) => {
-        call.time === time;
-        call.canCall = false;
+      this.alarmCollection.forEach((call) => {
+        if (call.time === this.getCurrentFormattedTime() && call.canCall) {
+          this.canCall = false;
+          this.callback();
+        }
       });
     }, 1000)
     return;
@@ -49,7 +52,7 @@ class AlarmClock {
 
   // метод, который сбрасывает возможность запуска всех звонков.
   resetAllCalls() {
-    return this.alarmCollection = this.alarmCollection.forEach((call) => call.canCall = true);
+    return this.alarmCollection.forEach((call) => call.canCall = true);
   }
 
   // метод, который удаляет все звонки.
