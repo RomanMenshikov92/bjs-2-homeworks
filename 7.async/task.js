@@ -13,7 +13,7 @@ class AlarmClock {
     if (this.alarmCollection.find((call) => call.time === time)) {
       console.warn('Уже присутствует звонок на это же время');
     }
-    return this.alarmCollection.push({ time, callback, canCall: true })
+    return this.alarmCollection.push({ time, callback, canCall: true });
   }
 
   // метод, который удаляет звонки по определённому времени.
@@ -23,8 +23,7 @@ class AlarmClock {
 
   // метод, который возвращает текущее время в строковом формате HH:MM.
   getCurrentFormattedTime() {
-    return new Date().toTimeString().slice(0, 5)
-
+    return new Date().toTimeString().slice(0, 5);
   }
 
   // метод, который запускает будильник.
@@ -35,8 +34,8 @@ class AlarmClock {
     this.intervalId = setInterval(() => {
       this.alarmCollection.forEach((call) => {
         if (call.time === this.getCurrentFormattedTime() && call.canCall) {
-          this.canCall = false;
-          this.callback();
+          call.canCall = false;
+          call.callback();
         }
       });
     }, 1000)
